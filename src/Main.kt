@@ -150,7 +150,7 @@ fun main(args: Array<String>) {
                 }
             }.toString()
 
-            Log.info("        Top 3: $top3Str")
+            Log.info("        Top 5: $top3Str")
         }
     }
     Log.info("=" * 80)
