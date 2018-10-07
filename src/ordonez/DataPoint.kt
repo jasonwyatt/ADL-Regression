@@ -1,6 +1,7 @@
 package ordonez
 
 import java.util.*
+import javax.xml.crypto.Data
 import kotlin.math.PI
 import kotlin.math.sin
 
@@ -108,7 +109,7 @@ data class DataPoint(
                      room: Room) = apply {
             val timeRange = LongRange(startTime.timeInMillis, endTime.timeInMillis)
             val overlap = this.timeRange.overlap(timeRange)
-            val overlapMinutes = if (overlap > 30*1000) {
+            val overlapMinutes = if (overlap > 1*1000) {
                 Math.max(overlap / (60*1000.0), 1.0).toInt()
             } else {
                 0
