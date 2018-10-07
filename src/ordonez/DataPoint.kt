@@ -42,8 +42,8 @@ data class DataPoint(
     @Transient
     val arrayRepresentationWithBias = arrayOf(
             1.0,
-            //startTimePeriodic,
-            //endTimePeriodic,
+            startTimePeriodic,
+            endTimePeriodic,
             // minutes at location
             minutesAtShower,
             minutesAtBasin,
@@ -107,7 +107,13 @@ data class DataPoint(
                      sensor: SensorType,
                      room: Room) = apply {
             val timeRange = LongRange(startTime.timeInMillis, endTime.timeInMillis)
-            val durationMinutes = Math.max(this.timeRange.overlap(timeRange) / (60*1000), 1).toInt()
+            val overlap = this.timeRange.overlap(timeRange)
+            val overlapMinutes = if (overlap > 30*1000) {
+                Math.max(overlap / (60*1000.0), 1.0).toInt()
+            } else {
+                0
+            }
+            val durationMinutes = overlapMinutes
 
             when (location) {
                 Location.Shower -> addShowerTime(durationMinutes)
